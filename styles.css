@@ -1,0 +1,44 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+  font-family: Gotham Rounded;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  display: flex;
+  width: 100vw;
+  height: 100vh;
+  justify-content: center;
+  align-items: center;
+  background-color: #333;
+}
+
+.container {
+  width: 800px;
+  max-width: 80%;
+  background-color: white;
+  border-radius: 5px;
+  padding: 10px;
+  box-shadow: 0 0 10px 2px;
+}
+
+.btn-grid {
+  display: grid;
+  grid-template-columns: repeat(2, auto);
+  gap: 10px;
+  margin: 20px 0;
+}
+
+.btn {
+  border: 1px solid hsl(200, 100%, 30%);
+  background-color: hsl(200, 100%, 50%);
+  border-radius: 5px;
+  padding: 5px 10px;
+  color: white;
+  outline: none;
+}
+
+.btn:hover {
+  border-color: black;
+}
