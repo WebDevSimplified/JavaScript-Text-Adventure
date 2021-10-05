@@ -46,7 +46,8 @@ const textNodes = [
     options: [
       {
         text: 'Take the goo',
-        setState: { blueGoo: true },
+        //setState: { blueGoo: true },
+        setState: { money: 10 }
         nextText: 2
       },
       {
@@ -61,7 +62,7 @@ const textNodes = [
     options: [
       {
         text: 'Trade the goo for a sword',
-        requiredState: (currentState) => currentState.blueGoo,
+        requiredState: (currentState) => currentState.money > 5,
         setState: { blueGoo: false, sword: true },
         nextText: 3
       },
