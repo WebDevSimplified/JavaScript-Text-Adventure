@@ -1,6 +1,7 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
 *, *::before, *::after {
   box-sizing: border-box;
-  font-family: Gotham Rounded;
 }
 
 body {
@@ -11,34 +12,105 @@ body {
   align-items: center;
   width: 100vw;
   height: 100vh;
-  background-color: #333;
+  min-height: 600px;
+
+  font-family: 'Crimson Text', serif;
+
+  background-color: #0a0d10;
+  background-image:
+    radial-gradient(ellipse at top, rgba(40, 55, 50, 0.35), transparent 60%),
+    radial-gradient(ellipse at bottom, rgba(90, 20, 25, 0.15), transparent 55%);
 }
 
 .container {
   width: 800px;
-  max-width: 80%;
-  background-color: white;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px 2px;
+  max-width: 90%;
+
+  background-color: #14181c;
+  background-image: linear-gradient(160deg, #171b1f, #0d1013);
+
+  padding: 30px 35px;
+  border-radius: 2px;
+
+  border: 1px solid rgba(201, 166, 107, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 25px 60px rgba(0, 0, 0, 0.65),
+    0 0 40px rgba(150, 30, 30, 0.06);
+
+  position: relative;
+}
+
+/* thin gold corner accents, detective case-file feel */
+.container::before,
+.container::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgba(201, 166, 107, 0.6);
+  border-style: solid;
+}
+
+.container::before {
+  top: 8px;
+  left: 8px;
+  border-width: 1px 0 0 1px;
+}
+
+.container::after {
+  bottom: 8px;
+  right: 8px;
+  border-width: 0 1px 1px 0;
+}
+
+#text {
+  color: #e8dfcf;
+  font-size: 19px;
+  line-height: 1.75;
+  font-style: italic;
+  letter-spacing: 0.2px;
+
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(201, 166, 107, 0.18);
 }
 
 .btn-grid {
   display: grid;
-  grid-template-columns: repeat(2, auto);
-  gap: 10px;
-  margin-top: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 24px;
 }
 
 .btn {
-  background-color: hsl(200, 100%, 50%);
-  border: 1px solid hsl(200, 100%, 30%);
-  border-radius: 5px;
-  padding: 5px 10px;
-  color: white;
+  background: linear-gradient(160deg, #1b2024, #0e1114);
+  border: 1px solid rgba(201, 166, 107, 0.45);
+  border-radius: 2px;
+
+  padding: 14px 16px;
+  color: #d8cdb8;
+
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+
+  cursor: pointer;
   outline: none;
+
+  transition: border-color 160ms ease, background 160ms ease,
+              box-shadow 160ms ease, transform 160ms ease;
 }
 
 .btn:hover {
-  border-color: black;
+  border-color: rgba(230, 200, 140, 0.9);
+  background: linear-gradient(160deg, #232a2e, #131719);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 16px rgba(201, 166, 107, 0.1);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
 }
