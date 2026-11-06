@@ -1,7 +1,10 @@
 import { textNodes } from './story/index.js'
+import { imageFor } from './story/images.js'
 
 const textElement = document.getElementById('text')
 const optionButtonsElement = document.getElementById('option-buttons')
+const sceneImageElement = document.getElementById('scene-image')
+const sceneImg = document.getElementById('scene-img')
 
 const startingItems = {
   cigarettes: true,
@@ -13,6 +16,32 @@ const startingState = {
 }
 
 let state = {}
+let currentImage = null
+
+sceneImg.addEventListener('load', () => {
+  sceneImageElement.classList.remove('loading')
+})
+
+sceneImg.addEventListener('error', () => {
+  sceneImageElement.classList.remove('loading')
+  sceneImageElement.classList.add('missing')
+})
+
+function setSceneImage(textNode) {
+
+  const file = imageFor(textNode)
+
+  // many scenes in a row share a picture, so only reload when it changes
+  if (file === currentImage) return
+  currentImage = file
+
+  sceneImageElement.classList.add('loading')
+  sceneImageElement.classList.remove('missing')
+  sceneImageElement.dataset.label = `images/${file}`
+
+  sceneImg.alt = file.replace(/\.[a-z]+$/i, '').replace(/-/g, ' ')
+  sceneImg.src = `images/${file}`
+}
 
 function startGame() {
 
@@ -35,6 +64,7 @@ function showTextNode(textNodeId) {
   }
 
   textElement.innerText = textNode.text
+  setSceneImage(textNode)
 
   while (optionButtonsElement.firstChild) {
     optionButtonsElement.removeChild(optionButtonsElement.firstChild)
@@ -65,7 +95,8 @@ function selectOption(option) {
 
   const nextTextNodeId = option.nextText
 
-  if (nextTextNodeId === 'restart') {
+  // endings use nextText: -1 ("Play again"); 'restart' also still works
+  if (nextTextNodeId === 'restart' || nextTextNodeId === -1) {
     return startGame()
   }
 

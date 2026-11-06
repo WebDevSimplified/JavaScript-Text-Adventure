@@ -1,44 +1,249 @@
+@import url('https://fonts.googleapis.com/css2?family=Cinzel:wght@500;600;700&family=Crimson+Text:ital,wght@0,400;0,600;1,400&display=swap');
+
 *, *::before, *::after {
   box-sizing: border-box;
-  font-family: Gotham Rounded;
 }
 
 body {
-  padding: 0;
+  padding: 24px 0;
   margin: 0;
   display: flex;
   justify-content: center;
   align-items: center;
-  width: 100vw;
-  height: 100vh;
-  background-color: #333;
+  width: 100%;
+  min-height: 100vh;
+
+  font-family: 'Crimson Text', serif;
+
+  background-color: #0a0d10;
+  background-image:
+    radial-gradient(ellipse at top, rgba(40, 55, 50, 0.35), transparent 60%),
+    radial-gradient(ellipse at bottom, rgba(90, 20, 25, 0.15), transparent 55%);
 }
 
 .container {
   width: 800px;
-  max-width: 80%;
-  background-color: white;
-  padding: 10px;
-  border-radius: 5px;
-  box-shadow: 0 0 10px 2px;
+  max-width: 90%;
+
+  background-color: #14181c;
+  background-image: linear-gradient(160deg, #171b1f, #0d1013);
+
+  padding: 30px 35px;
+  border-radius: 2px;
+
+  border: 1px solid rgba(201, 166, 107, 0.35);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 25px 60px rgba(0, 0, 0, 0.65),
+    0 0 40px rgba(150, 30, 30, 0.06);
+
+  position: relative;
+}
+
+/* thin gold corner accents, detective case-file feel */
+.container::before,
+.container::after {
+  content: '';
+  position: absolute;
+  width: 14px;
+  height: 14px;
+  border-color: rgba(201, 166, 107, 0.6);
+  border-style: solid;
+}
+
+.container::before {
+  top: 8px;
+  left: 8px;
+  border-width: 1px 0 0 1px;
+}
+
+.container::after {
+  bottom: 8px;
+  right: 8px;
+  border-width: 0 1px 1px 0;
+}
+
+#text {
+  color: #e8dfcf;
+  font-size: 19px;
+  line-height: 1.75;
+  font-style: italic;
+  letter-spacing: 0.2px;
+
+  padding-bottom: 8px;
+  border-bottom: 1px solid rgba(201, 166, 107, 0.18);
 }
 
 .btn-grid {
   display: grid;
-  grid-template-columns: repeat(2, auto);
-  gap: 10px;
-  margin-top: 20px;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 12px;
+  margin-top: 24px;
 }
 
 .btn {
-  background-color: hsl(200, 100%, 50%);
-  border: 1px solid hsl(200, 100%, 30%);
-  border-radius: 5px;
-  padding: 5px 10px;
-  color: white;
+  background: linear-gradient(160deg, #1b2024, #0e1114);
+  border: 1px solid rgba(201, 166, 107, 0.45);
+  border-radius: 2px;
+
+  padding: 14px 16px;
+  color: #d8cdb8;
+
+  font-family: 'Cinzel', serif;
+  font-size: 13px;
+  letter-spacing: 1.5px;
+  text-transform: uppercase;
+  text-align: center;
+  text-decoration: none;
+
+  cursor: pointer;
   outline: none;
+
+  transition: border-color 160ms ease, background 160ms ease,
+              box-shadow 160ms ease, transform 160ms ease;
 }
 
 .btn:hover {
-  border-color: black;
+  border-color: rgba(230, 200, 140, 0.9);
+  background: linear-gradient(160deg, #232a2e, #131719);
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.5), 0 0 16px rgba(201, 166, 107, 0.1);
+  transform: translateY(-1px);
+}
+
+.btn:active {
+  transform: translateY(0);
+}
+
+/* ---------- game layout: fills the whole window, no page scrolling ---------- */
+
+body:has(.container.game) {
+  padding: 0;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+.container.game {
+  width: 100%;
+  max-width: none;
+  height: 100%;
+  border-radius: 0;
+  border-width: 0;
+
+  padding: clamp(20px, 4vh, 48px) clamp(24px, 3.5vw, 64px);
+
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
+  grid-template-rows: minmax(0, 1fr);
+  gap: clamp(24px, 3vw, 56px);
+}
+
+/* left column: text, then options. Only scrolls if a scene is very long */
+.game-text {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  min-height: 0;
+  overflow-y: auto;
+  padding-right: 8px;
+
+  scrollbar-width: thin;
+  scrollbar-color: rgba(201, 166, 107, 0.4) transparent;
+}
+
+/* text size scales with the window (width and height) */
+.game #text {
+  font-size: clamp(20px, min(2vw, 3.3vh), 34px);
+  line-height: 1.6;
+  padding-bottom: clamp(10px, 2vh, 20px);
+}
+
+/* options stacked under each other */
+.game .btn-grid {
+  grid-template-columns: 1fr;
+  gap: clamp(8px, 1.4vh, 14px);
+  margin-top: clamp(16px, 3vh, 32px);
+}
+
+.game .btn {
+  text-align: left;
+  font-size: clamp(13px, min(1.1vw, 1.9vh), 19px);
+  padding: clamp(10px, 1.9vh, 20px) clamp(14px, 1.4vw, 24px);
+}
+
+/* right column: picture fills the full height */
+.scene-image {
+  margin: 0;
+  position: relative;
+  height: 100%;
+  min-height: 0;
+  overflow: hidden;
+
+  background: #0d1013;
+  border: 1px solid rgba(201, 166, 107, 0.35);
+}
+
+.scene-image img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+
+  filter: saturate(0.85) contrast(1.05);
+  opacity: 1;
+  transition: opacity 300ms ease;
+}
+
+.scene-image.loading img {
+  opacity: 0;
+}
+
+/* no picture in /images yet: show a placeholder with the filename to add */
+.scene-image.missing img {
+  display: none;
+}
+
+.scene-image.missing::after {
+  content: attr(data-label);
+  position: absolute;
+  inset: 12px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  text-align: center;
+
+  border: 1px dashed rgba(201, 166, 107, 0.4);
+  font-family: 'Cinzel', serif;
+  font-size: 12px;
+  letter-spacing: 1.5px;
+  color: rgba(216, 205, 184, 0.5);
+}
+
+/* phones and narrow windows: picture on top, page scrolls normally */
+@media (max-width: 800px) {
+  body:has(.container.game) {
+    height: auto;
+    min-height: 100vh;
+    overflow: auto;
+  }
+
+  .container.game {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto;
+    height: auto;
+    min-height: 100vh;
+    gap: 20px;
+    padding: 20px;
+  }
+
+  .game-text {
+    overflow: visible;
+  }
+
+  .scene-image {
+    order: -1;
+    height: 220px;
+  }
 }
